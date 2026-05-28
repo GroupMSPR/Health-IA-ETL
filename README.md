@@ -99,7 +99,7 @@ Google Drive (Déplacement vers Archive / Error + Log)
 
 ---
 
-## 📂 Logique ETL
+## Logique ETL
 
 L'arborescence Google Drive permet d'organiser les flux.  
 Les fichiers à traiter doivent être déposés dans :
@@ -116,7 +116,7 @@ Après traitement :
 
 ---
 
-## 📥 Installation et Déploiement
+## Installation et Déploiement
 
 ### Prérequis
 
@@ -187,7 +187,7 @@ python main.py
 
 ---
 
-## 🔑 Configuration Google Drive
+## Configuration Google Drive
 
 Pour que l'ETL puisse interagir avec Google Drive, vous devez configurer des identifiants API :
 
@@ -204,7 +204,7 @@ credentials.json
 
 ---
 
-## ⚙️ Initialisation du service Google Drive
+## Initialisation du service Google Drive
 
 Pour la première connexion (si vous n'utilisez pas la variable d'environnement Base64) :
 
