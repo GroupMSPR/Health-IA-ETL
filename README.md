@@ -19,7 +19,6 @@
 - [Configuration Google Drive](#configuration-google-drive)
 - [Initialisation du service Google Drive](#initialisation-du-service-google-drive)
 - [Troubleshooting](#troubleshooting)
-- [Documentation supplémentaire](#documentation-supplémentaire)
 
 ---
 
