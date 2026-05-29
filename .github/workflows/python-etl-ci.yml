@@ -11,20 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Récupérer le code
+      - name: Checkout du code
         uses: actions/checkout@v4
 
-      - name: Configurer Python
+      - name: Configuration Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip' # Gère le cache des dépendances
 
-      - name: Installer les dépendances
+      - name: Installation des dépendances
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install ruff
 
-      - name: Vérifier le code avec Ruff
+      - name: Vérification du code avec Ruff
         run: ruff check .
