@@ -4,7 +4,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
 ![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white)
-![Google Drive](https://img.shields.io/badge/Google_Drive_API-4285F4?logo=googledrive&logoColor=white)
+![Google Drive](https://img.shields.io/badge/Google_Drive_API-2.30+-4285F4?logo=googledrive&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 
 ![Type](https://img.shields.io/badge/Type-Data_Pipeline-purple)
