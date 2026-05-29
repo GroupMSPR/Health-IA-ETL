@@ -65,18 +65,20 @@ Health-IA-ETL/
 
 ### Diagramme de flux
 
-```text
-Google Drive (ToImport)
-    ↓ (API Drive)
-Téléchargement local (fileManager)
-    ↓
-Détection du format (handlers : CSV, JSON, Excel)
-    ↓
-Transformation & Nettoyage (dataframeFormatter)
-    ↓
-Insertion Base de Données (dbHandler)
-    ↓
-Google Drive (Déplacement vers Archive / Error + Log)
+```mermaid
+graph TD
+    DriveIn("☁️ Google Drive : Dossier ToImport")
+    Local("📥 Téléchargement local fileManager")
+    Detect("🔍 Détection du format handlers")
+    Transform("🔨 Nettoyage & Formatage dataframeFormatter")
+    DB[("🗄️ Insertion Base de Données dbHandler")]
+    DriveOut("☁️ Google Drive : Archive / Error + Log")
+
+    DriveIn -- "API Drive OAuth 2.0" --> Local
+    Local --> Detect
+    Detect -- "CSV / JSON / Excel" --> Transform
+    Transform --> DB
+    DB -- "Succès ou Échec" --> DriveOut
 ```
 
 ---
