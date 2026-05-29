@@ -3,7 +3,7 @@
 **Pipeline ETL (Extract, Transform, Load)** de la plateforme HealthAI Coach, développé en **Python**. Ce service prend en charge l'extraction de fichiers (CSV, JSON et XLSX), leur transformation et leur chargement dans la base de données.
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-3-150458?logo=pandas&logoColor=white)
 ![Google Drive](https://img.shields.io/badge/Google_Drive_API-2.30+-4285F4?logo=googledrive&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 
