@@ -7,6 +7,7 @@
 ![Google Drive](https://img.shields.io/badge/Google_Drive_API-4285F4?logo=googledrive&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
+![Type](https://img.shields.io/badge/Type-Data_Pipeline-purple)
 
 ---
 
