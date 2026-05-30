@@ -1,11 +1,10 @@
 import json
-import os
 
 import pandas
 from googleapiclient.discovery import Resource
 from utils.driveHelper import move_file
 from utils.fileManager import  WriteLog
-from config import ERROR_ID, LOG_ID, TMP_PATH
+from config import ERROR_ID, LOG_ID
 
 def convertJsonToPanda(path: str, file, service: Resource):
     try:

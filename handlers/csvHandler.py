@@ -1,6 +1,5 @@
-import os
 import pandas as pd
-from config import ERROR_ID, LOG_ID, TMP_PATH
+from config import ERROR_ID, LOG_ID
 from utils.driveHelper import move_file
 from utils.fileManager import WriteLog
 from googleapiclient.discovery import Resource

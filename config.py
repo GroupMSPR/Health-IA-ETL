@@ -1,7 +1,7 @@
 import os
 import uuid
 from dotenv import load_dotenv
-from sqlalchemy import Uuid, NUMERIC, SMALLINT, TEXT, TIMESTAMP, Column, Date, DateTime, ForeignKey, Numeric, SmallInteger, String, Integer, Text, Time, Table
+from sqlalchemy import Uuid, NUMERIC, SMALLINT, TEXT, Column, Date, DateTime, ForeignKey, Numeric, SmallInteger, String, Integer, Text, Time
 from sqlalchemy.orm import DeclarativeBase, relationship
 
 load_dotenv()
