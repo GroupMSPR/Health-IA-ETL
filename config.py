@@ -1,8 +1,8 @@
 import os
 import uuid
+
 from dotenv import load_dotenv
 from sqlalchemy import (
-    Uuid,
     NUMERIC,
     SMALLINT,
     TEXT,
@@ -10,12 +10,13 @@ from sqlalchemy import (
     Date,
     DateTime,
     ForeignKey,
+    Integer,
     Numeric,
     SmallInteger,
     String,
-    Integer,
     Text,
     Time,
+    Uuid,
 )
 from sqlalchemy.orm import DeclarativeBase, relationship
 

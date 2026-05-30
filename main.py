@@ -1,19 +1,18 @@
 import os
 
-from dotenv import load_dotenv
-
 import pandas
-
+from dotenv import load_dotenv
 from googleapiclient.discovery import Resource
-from handlers.csvHandler import convertCsvToPanda
 from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import Session
+
 from config import ERROR_ID, LOG_ID, TMP_PATH, TO_IMPORT_ID, Base
+from handlers.csvHandler import convertCsvToPanda
+from handlers.dbHandler import sendToTable
 from handlers.excelHandler import convertExcelToPanda
+from handlers.jsonHandler import convertJsonToPanda
 from utils import driveHelper
 from utils.fileManager import GetFileType, WriteLog
-from handlers.dbHandler import sendToTable
-from handlers.jsonHandler import convertJsonToPanda
 
 
 def Main():
@@ -65,15 +64,11 @@ def Main():
 
         if data is not None:
             cols_with_lists = [
-                col
-                for col in data.columns
-                if data[col].apply(lambda x: isinstance(x, list)).any()
+                col for col in data.columns if data[col].apply(lambda x: isinstance(x, list)).any()
             ]
 
             for col in cols_with_lists:
-                data[col] = data[col].apply(
-                    lambda x: str(x) if isinstance(x, list) else x
-                )
+                data[col] = data[col].apply(lambda x: str(x) if isinstance(x, list) else x)
 
             data = data.drop_duplicates()
             sendToTable(data, file, session, service)

@@ -1,18 +1,14 @@
 import pandas
 
 
-def renameColumn(
-    dataFrame: pandas.DataFrame, columnsToRename: list[str], renameValue: str
-):
+def renameColumn(dataFrame: pandas.DataFrame, columnsToRename: list[str], renameValue: str):
     try:
         nbrChange = 0
         errorMessage = ""
         for elem in columnsToRename:
             if elem in dataFrame:
                 if nbrChange == 1:
-                    errorMessage = (
-                        "multiple column with same name meaning " + renameValue
-                    )
+                    errorMessage = "multiple column with same name meaning " + renameValue
                     return dataFrame, errorMessage + "\n"
                 dataFrame = dataFrame.rename(columns={elem: renameValue})
                 nbrChange += 1

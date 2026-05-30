@@ -1,10 +1,11 @@
 import datetime
-from typing import Any, List
+from typing import Any
 
 import pandas
-
+from googleapiclient.discovery import Resource
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.schema import Column
+
 from config import (
     ARCHIVE_ID,
     ERROR_ID,
@@ -16,10 +17,9 @@ from config import (
     Practice,
     User,
 )
+from utils.dataframeFormatter import formatDataFrame
 from utils.driveHelper import move_file
 from utils.fileManager import WriteLog
-from googleapiclient.discovery import Resource
-from utils.dataframeFormatter import formatDataFrame
 
 
 def sendToTable(data: pandas.DataFrame, file, session: Session, service: Resource):
@@ -109,9 +109,7 @@ def sendUserToDb(data: pandas.DataFrame, file, session: Session, service: Resour
             data["birthdate"] = pandas.to_datetime(data["birthdate"]).dt.date
 
         if "subscription_date" in data:
-            data["subscription_date"] = pandas.to_datetime(
-                data["subscription_date"]
-            ).dt.date
+            data["subscription_date"] = pandas.to_datetime(data["subscription_date"]).dt.date
 
         for _, row in data.iterrows():
             user: User = User()
@@ -498,9 +496,7 @@ def sendFoodToDb(data: pandas.DataFrame, file, session: Session, service: Resour
         move_file(service, file["id"], ERROR_ID)
 
 
-def sendHealthMetricToDb(
-    data: pandas.DataFrame, file, session: Session, service: Resource
-):
+def sendHealthMetricToDb(data: pandas.DataFrame, file, session: Session, service: Resource):
     succesful: bool = True
 
     errorMessage = ""
@@ -704,9 +700,7 @@ def sendHealthMetricToDb(
         move_file(service, file["id"], ERROR_ID)
 
 
-def sendUserFoodRelationToDb(
-    data: pandas.DataFrame, file, session: Session, service: Resource
-):
+def sendUserFoodRelationToDb(data: pandas.DataFrame, file, session: Session, service: Resource):
     succesful: bool = True
 
     errorMessage = ""
@@ -722,8 +716,8 @@ def sendUserFoodRelationToDb(
         emails: list[Any] = data["email"].tolist()
         foodNames: list[Any] = data["food_name"].tolist()
 
-        users: List[User] = session.query(User).filter(User.email.in_(emails)).all()
-        foods: List[Food] = session.query(Food).filter(Food.name.in_(foodNames)).all()
+        users: list[User] = session.query(User).filter(User.email.in_(emails)).all()
+        foods: list[Food] = session.query(Food).filter(Food.name.in_(foodNames)).all()
 
         userMap: dict[Column[str], User] = {u.email: u for u in users}
         foodMap: dict[Column[str], Food] = {f.name: f for f in foods}
@@ -749,9 +743,7 @@ def sendUserFoodRelationToDb(
         move_file(service, file["id"], ERROR_ID)
 
 
-def sendUserExerciseRelationToDb(
-    data: pandas.DataFrame, file, session: Session, service: Resource
-):
+def sendUserExerciseRelationToDb(data: pandas.DataFrame, file, session: Session, service: Resource):
     succesful: bool = True
 
     errorMessage = ""
@@ -767,8 +759,8 @@ def sendUserExerciseRelationToDb(
         emails: list[Any] = data["email"].tolist()
         exerciseNames: list[Any] = data["exercise_name"].tolist()
 
-        users: List[User] = session.query(User).filter(User.email.in_(emails)).all()
-        exercises: List[Exercise] = (
+        users: list[User] = session.query(User).filter(User.email.in_(emails)).all()
+        exercises: list[Exercise] = (
             session.query(Exercise).filter(Exercise.name.in_(exerciseNames)).all()
         )
 

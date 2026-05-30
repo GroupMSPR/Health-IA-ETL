@@ -6,7 +6,6 @@ import pickle
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaIoBaseDownload
 
-
 from config import TMP_PATH
 
 SCOPES = ["https://www.googleapis.com/auth/drive"]
@@ -47,9 +46,7 @@ def get_drive_service():
     #         pickle.dump(creds, token)
 
     if not creds or not creds.valid and not creds.refresh_token:
-        raise RuntimeError(
-            "Invalid credentials and no refresh token — re-authenticate manually."
-        )
+        raise RuntimeError("Invalid credentials and no refresh token — re-authenticate manually.")
 
 
 def list_files(service, folder_id):
@@ -89,6 +86,7 @@ def move_file(service, file_id, new_folder_id, new_name=None):
 
 def upload_log(service, folder_id, file_name, content):
     from io import BytesIO
+
     from googleapiclient.http import MediaIoBaseUpload
 
     media = MediaIoBaseUpload(BytesIO(content.encode()), mimetype="text/plain")
