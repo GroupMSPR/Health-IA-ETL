@@ -41,9 +41,7 @@ def Main():
     service: Resource = driveHelper.get_drive_service()
 
     files = driveHelper.list_files(service, TO_IMPORT_ID)
-    files = sorted(
-        files, key=lambda x: (not x["name"][0].isdigit(), x["name"].lower())
-    )
+    files = sorted(files, key=lambda x: (not x["name"][0].isdigit(), x["name"].lower()))
 
     for file in files:
         file_id = file["id"]
