@@ -5,7 +5,6 @@ def GetFileType(fileName: str):
     return fileName.split(".")[-1]
 
 
-
 def WriteLog(service, log_folder_id, file: str, message: str):
     from utils.driveHelper import upload_log
 

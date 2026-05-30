@@ -3,8 +3,9 @@ import json
 import pandas
 from googleapiclient.discovery import Resource
 from utils.driveHelper import move_file
-from utils.fileManager import  WriteLog
+from utils.fileManager import WriteLog
 from config import ERROR_ID, LOG_ID
+
 
 def convertJsonToPanda(path: str, file, service: Resource):
     try:
@@ -16,7 +17,12 @@ def convertJsonToPanda(path: str, file, service: Resource):
         elif isinstance(data, list):
             df = pandas.DataFrame(data)
         else:
-            WriteLog(service, LOG_ID, file["name"], "fileType not understood. If object, it must contain a 'data' list.")
+            WriteLog(
+                service,
+                LOG_ID,
+                file["name"],
+                "fileType not understood. If object, it must contain a 'data' list.",
+            )
             move_file(service, file["id"], ERROR_ID)
             return None
 

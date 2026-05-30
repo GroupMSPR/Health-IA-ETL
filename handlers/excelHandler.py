@@ -7,7 +7,7 @@ from googleapiclient.discovery import Resource
 def convertExcelToPanda(path: str, file, service: Resource):
     try:
         df = pd.read_excel(path)   
-        return df->
+        return df
     
     except Exception as ex:
         WriteLog(service, LOG_ID, file["name"], f"Excel read failed: {ex}")
