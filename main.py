@@ -15,7 +15,8 @@ from utils.fileManager import GetFileType, WriteLog
 from handlers.dbHandler import sendToTable
 from handlers.jsonHandler import convertJsonToPanda
 
-def Main() :
+
+def Main():
 
     load_dotenv()
 
@@ -36,21 +37,22 @@ def Main() :
     except Exception as e:
         print("DB error:", e)
         return
-    
+
     service: Resource = driveHelper.get_drive_service()
 
     files = driveHelper.list_files(service, TO_IMPORT_ID)
-    files = sorted(files, key=lambda x: (not x["name"][0].isdigit(), x["name"].lower())) # if there is more then 9 table we'll have to redo it to sort based on value
-    
-    for file in files:
+    files = sorted(
+        files, key=lambda x: (not x["name"][0].isdigit(), x["name"].lower())
+    )  # if there is more then 9 table we'll have to redo it to sort based on value
 
+    for file in files:
         file_id = file["id"]
         file_name = file["name"]
 
         driveHelper.download_file(service, file_id, os.path.join(TMP_PATH, file_name))
         local_path = os.path.join(TMP_PATH, file_name)
 
-        data : pandas.DataFrame = None
+        data: pandas.DataFrame = None
         match GetFileType(local_path):
             case "csv":
                 data = convertCsvToPanda(local_path, file, service)
@@ -62,12 +64,18 @@ def Main() :
                 driveHelper.move_file(service, file_id, ERROR_ID)
                 WriteLog(service, LOG_ID, file_name, "unrecognise dataType")
                 continue
-        
+
         if data is not None:
-            cols_with_lists = [col for col in data.columns if data[col].apply(lambda x: isinstance(x, list)).any()]
-    
+            cols_with_lists = [
+                col
+                for col in data.columns
+                if data[col].apply(lambda x: isinstance(x, list)).any()
+            ]
+
             for col in cols_with_lists:
-                data[col] = data[col].apply(lambda x: str(x) if isinstance(x, list) else x)
+                data[col] = data[col].apply(
+                    lambda x: str(x) if isinstance(x, list) else x
+                )
 
             data = data.drop_duplicates()
             sendToTable(data, file, session, service)
@@ -75,5 +83,6 @@ def Main() :
     if session:
         session.close()
         print("Database connection closed.")
+
 
 Main()

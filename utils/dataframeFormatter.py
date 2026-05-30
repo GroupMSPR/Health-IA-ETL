@@ -1,22 +1,31 @@
 import pandas
 
-def renameColumn(dataFrame : pandas.DataFrame, columnsToRename : list[str], renameValue: str):
+
+def renameColumn(
+    dataFrame: pandas.DataFrame, columnsToRename: list[str], renameValue: str
+):
     try:
         nbrChange = 0
         errorMessage = ""
-        for elem in columnsToRename :
+        for elem in columnsToRename:
             if elem in dataFrame:
-                if nbrChange == 1 :
-                    errorMessage = "multiple column with same name meaning " + renameValue
-                    return dataFrame, errorMessage + "\n" 
+                if nbrChange == 1:
+                    errorMessage = (
+                        "multiple column with same name meaning " + renameValue
+                    )
+                    return dataFrame, errorMessage + "\n"
                 dataFrame = dataFrame.rename(columns={elem: renameValue})
                 nbrChange += 1
-    except Exception as ex :
+    except Exception as ex:
         return dataFrame, str(ex)
 
     return dataFrame, errorMessage
 
-def formatDataFrame(dataFrame : pandas.DataFrame, columnsToRename : list[str],):
+
+def formatDataFrame(
+    dataFrame: pandas.DataFrame,
+    columnsToRename: list[str],
+):
     errorMessage = ""
 
     for column in columnsToRename:
@@ -24,13 +33,14 @@ def formatDataFrame(dataFrame : pandas.DataFrame, columnsToRename : list[str],):
         possibleName = listNamingConventionFromSnakeCase(column)
         dataFrame, errorMessageFunction = renameColumn(dataFrame, possibleName, column)
         errorMessage += errorMessageFunction
-    
+
     return dataFrame, errorMessage
 
-def listNamingConventionFromSnakeCase(snakeCaseVar : str) -> list[str]:
+
+def listNamingConventionFromSnakeCase(snakeCaseVar: str) -> list[str]:
     splitName: list[str] = snakeCaseVar.split("_")
-    variationList : list[str] = []
-    
+    variationList: list[str] = []
+
     variationList.append(snakeCaseVar)
 
     screaminSnake = "_".join([word.upper() for word in splitName])
@@ -64,7 +74,5 @@ def listNamingConventionFromSnakeCase(snakeCaseVar : str) -> list[str]:
     variationList.append(title)
 
     variationList = list(dict.fromkeys(variationList))
-    
-    return variationList
 
-    
+    return variationList
