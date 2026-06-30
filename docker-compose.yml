@@ -12,8 +12,30 @@ services:
     container_name: healthai_grafana
     ports:
       - "3000:3000"
+    env_file:
+      - ../Monitoring/.env
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_FEATURE_TOGGLES_ENABLE=alertingSimplifiedRouting
+      - GF_ALERTING_ENABLED=true
+      - GF_UNIFIED_ALERTING_ENABLED=true
+      - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=5s
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ../Grafana/provisioning:/etc/grafana/provisioning:ro
+      - ../Grafana/monitoring-dashboards:/var/lib/grafana/dashboards/monitoring:ro
+      - ../Grafana/data-dashboards:/var/lib/grafana/dashboards/data:ro
+    networks:
+      - sail
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+networks:
+  sail:
+    external: true
+    name: healthai_backend_sail
+
+volumes:
+  grafana_data:
